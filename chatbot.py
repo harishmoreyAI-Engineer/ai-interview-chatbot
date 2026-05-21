@@ -265,11 +265,7 @@ pre code {
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 FREE_MODELS = {
-    "Gemma 3 27B (Google)": "google/gemma-3-27b-it:free",
-    "Llama 3.3 8B (Meta)": "meta-llama/llama-3.3-8b-instruct:free",
-    "Qwen3 8B (Alibaba)": "qwen/qwen3-8b:free",
-    "Mistral 7B": "mistralai/mistral-7b-instruct:free",
-    "DeepSeek R1 Zero": "deepseek/deepseek-r1-zero:free",
+    "GPT-OSS 120B (OpenAI)": "openai/gpt-oss-120b:free",
 }
 
 CATEGORIES = {
@@ -387,13 +383,10 @@ with st.sidebar:
         st.info("👆 Enter your free API key to start. Get one at [openrouter.ai](https://openrouter.ai)")
 
     st.markdown("### 🤖 Model")
-    selected_model_name = st.selectbox(
-        "Choose free model",
-        list(FREE_MODELS.keys()),
-        index=0,
-    )
+    selected_model_name = "GPT-OSS 120B (OpenAI)"
     st.session_state.selected_model = selected_model_name
     model_id = FREE_MODELS[selected_model_name]
+    st.markdown("**OpenAI: gpt-oss-120b** (free)")
     st.caption(f"`{model_id}`")
 
     st.markdown("---")
