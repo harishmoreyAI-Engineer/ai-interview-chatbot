@@ -266,10 +266,10 @@ OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 FREE_MODELS = {
     "Gemma 3 27B (Google)": "google/gemma-3-27b-it:free",
-    "Llama 3.1 8B (Meta)": "meta-llama/llama-3.1-8b-instruct:free",
+    "Llama 3.3 8B (Meta)": "meta-llama/llama-3.3-8b-instruct:free",
     "Qwen3 8B (Alibaba)": "qwen/qwen3-8b:free",
     "Mistral 7B": "mistralai/mistral-7b-instruct:free",
-    "DeepSeek R1 (7B)": "deepseek/deepseek-r1-0528-qwen3-8b:free",
+    "DeepSeek R1 Zero": "deepseek/deepseek-r1-zero:free",
 }
 
 CATEGORIES = {
@@ -363,7 +363,9 @@ def call_openrouter(messages: list, model_id: str, api_key: str) -> str:
         if r.status_code == 401:
             return "❌ **Invalid API Key.** Please check your OpenRouter API key in the sidebar."
         elif r.status_code == 429:
-            return "⏳ **Rate limited.** Please wait a moment and try again."
+            return "⏳ **Rate limited.** Please wait a moment and try again, or switch to a different model."
+        elif r.status_code == 404:
+            return f"❌ **Model not found.** The model `{model_id}` may no longer be available for free. Try switching to a different model in the sidebar."
         else:
             return f"❌ **API Error ({r.status_code}):** {str(e)}"
     except Exception as e:
